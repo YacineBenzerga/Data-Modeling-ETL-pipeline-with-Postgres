@@ -4,10 +4,10 @@ songplay_table_create = ("""
     CREATE TABLE IF NOT EXISTS songplays (
         songplay_id INT ,
         start_time TIMESTAMP NOT NULL,
-        user_id INT NOT NULL REFERENCES users (user_id),
+        user_id INT NOT NULL ,
         level VARCHAR,
-        song_id VARCHAR REFERENCES songs (song_id),
-        artist_id VARCHAR REFERENCES artists (artist_id),
+        song_id VARCHAR ,
+        artist_id VARCHAR,
         session_id INT NOT NULL,
         location VARCHAR,
         user_agent VARCHAR
@@ -21,19 +21,20 @@ user_table_create = ("""CREATE TABLE IF NOT EXISTS users (
     level VARCHAR NOT NULL
 )""")
 
+
 song_table_create = ("""CREATE TABLE IF NOT EXISTS songs (
     song_id VARCHAR PRIMARY KEY,
     title VARCHAR NOT NULL,
-    artist_id VARCHAR NOT NULL REFERENCES artists (artist_id),
+    artist_id VARCHAR NOT NULL,
     year INT NOT NULL,
     duration NUMERIC NOT NULL)""")
 
 artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists (
     artist_id VARCHAR PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    location VARCHAR,
-    latitude NUMERIC,
-    longitude NUMERIC)""")
+    artist_name VARCHAR,
+    artist_location VARCHAR,
+    artist_latitude NUMERIC,
+    artist_longitude NUMERIC)""")
 
 time_table_create = ("""
     CREATE TABLE IF NOT EXISTS time (
@@ -55,6 +56,30 @@ song_table_drop = "DROP TABLE IF EXISTS songs"
 artist_table_drop = "DROP TABLE IF EXISTS artists"
 time_table_drop = "DROP TABLE IF EXISTS time"
 
+
+# INSERT DATA INTO TABLES
+
+song_table_insert = (
+    """INSERT INTO songs (song_id,title,artist_id,year,duration) VALUES (%s,%s,%s,%s,%s)""")
+
+artist_table_insert = (
+    """INSERT INTO artists (artist_id,artist_name,artist_location,artist_latitude,artist_longitude) VALUES (%s,%s,%s,%s,%s)""")
+
+
+time_table_insert = ("""
+    INSERT INTO time (
+        start_time,
+        hour,
+        day,
+        week,
+        month,
+        year,
+        weekday
+    )
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (start_time)
+    DO NOTHING
+""")
 
 create_tbl_queries = [time_table_create, user_table_create,
                       artist_table_create, song_table_create, songplay_table_create]
