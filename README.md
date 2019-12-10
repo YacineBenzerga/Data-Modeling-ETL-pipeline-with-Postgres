@@ -20,8 +20,11 @@ The data resides in a directory of JSON logs containing user activity as well as
 ##Runing the ETL
 
 -executing run.sh will run create_tables.py then etl.py
+
 -create_tables.py: the creation of schema structure into the postgres database
+
 -etl.py:main ETL process
+
 -the JSON logs resides in the input directory
 
 ## Database Schema Design
