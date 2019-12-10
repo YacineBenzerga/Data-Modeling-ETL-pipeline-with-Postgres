@@ -60,10 +60,19 @@ time_table_drop = "DROP TABLE IF EXISTS time"
 # INSERT DATA INTO TABLES
 
 song_table_insert = (
-    """INSERT INTO songs (song_id,title,artist_id,year,duration) VALUES (%s,%s,%s,%s,%s)""")
+    """INSERT INTO songs (song_id,title,artist_id,year,duration) 
+       VALUES (%s,%s,%s,%s,%s)
+       ON CONFLICT (song_id)
+       DO NOTHING
+    """)
+
 
 artist_table_insert = (
-    """INSERT INTO artists (artist_id,artist_name,artist_location,artist_latitude,artist_longitude) VALUES (%s,%s,%s,%s,%s)""")
+    """INSERT INTO artists (artist_id,artist_name,artist_location,artist_latitude,artist_longitude) 
+    VALUES (%s,%s,%s,%s,%s)
+    ON CONFLICT (artist_id)
+    DO NOTHING
+    """)
 
 
 time_table_insert = ("""
@@ -96,6 +105,23 @@ user_table_insert = (
     """
 )
 
+songplay_table_insert = ("""
+    INSERT INTO songplays (
+        songplay_id,
+        start_time,
+        user_id,
+        level,
+        song_id,
+        artist_id,
+        session_id,
+        location,
+        user_agent
+    )
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (songplay_id)
+    DO NOTHING
+""")
+
 song_select = ("""
     SELECT 
         songs.song_id AS song_id,
@@ -105,7 +131,7 @@ song_select = ("""
         JOIN artists ON (songs.artist_id = artists.artist_id)
     WHERE
         songs.title = %s AND 
-        artists.name = %s AND 
+        artists.artist_name = %s AND 
         songs.duration = %s
 """)
 
