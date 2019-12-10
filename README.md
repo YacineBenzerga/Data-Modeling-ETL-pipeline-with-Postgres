@@ -6,14 +6,23 @@ The data resides in a directory of JSON logs containing user activity as well as
 
 .
 ##file structure
+
 ├──run.sh
+
 ├──src
+
 │   ├── create_tables.py
+
 │   ├── etl.py
+
 │   ├── sql_queries.py
+
 ├──input
+
 │   ├── data
+
 │       ├── log_data
+
 │       ├── song_data
 
 
