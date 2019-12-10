@@ -1,8 +1,7 @@
 # Data-Modeling-ETL-pipeline-with-Postgres
 
-This project consists of creating a database schema and an ETL pipeline
-from a music streaming app.  
-The data collected from the app resides in a directory of JSON logs containing user activity as well as JSON metadata on the songs.  
+This project consists of creating a database schema and an ETL pipeline from a music streaming app collected data.  
+The data resides in a directory of JSON logs containing user activity as well as JSON metadata on the songs.  
 
 
 .
