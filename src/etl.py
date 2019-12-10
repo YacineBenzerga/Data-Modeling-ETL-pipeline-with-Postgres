@@ -112,8 +112,8 @@ def main():
     # Connect to the database
     cur, conn = init_db_conn("spokifydb")
 
-    process_data(cur, conn, 'data/song_data', process_song_file)
-    process_data(cur, conn, 'data/log_data', process_log_file)
+    process_data(cur, conn, './input/data/song_data', process_song_file)
+    process_data(cur, conn, './input/data/log_data', process_log_file)
 
     conn.close()
 
